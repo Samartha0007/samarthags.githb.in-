@@ -1517,17 +1517,29 @@ I have selected to national level science exhibition.
             });
             </script>
 
-
-<!-- PushAlert -->
-<script type="text/javascript">
-        (function(d, t) {
-                var g = d.createElement(t),
-                s = d.getElementsByTagName(t)[0];
-                g.src = "https://cdn.pushalert.co/integrate_d29519975e8575ae60ec8d82324efe3b.js";
-                s.parentNode.insertBefore(g, s);
-        }(document, "script"));
+
+
+<script>
+  // Function to show a notification
+  function showNotification() {
+    // Check if the Notification API is supported
+    if ('Notification' in window) {
+      Notification.requestPermission().then(function (permission) {
+        // If the user grants permission, show the notification
+        if (permission === 'granted') {
+          var notification = new Notification('Time for a notification!', {
+            body: 'This is a notification sent every 15 seconds.',
+          });
+        }
+      });
+    }
+  }
+
+  // Set an interval to show the notification every 15 seconds
+  setInterval(showNotification, 15000); // 15 seconds in milliseconds
 </script>
-<!-- End PushAlert -->
+
+
     </body>
     </html>
 
