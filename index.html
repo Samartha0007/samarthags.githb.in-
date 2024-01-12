@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samartha-web</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Black+Ops+One&display=swap">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Black Ops One', sans-serif;
+            background: linear-gradient(310deg, #000, #000, #90CAF9);
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            color: #fff;
+            animation: changeBackgroundColor 20s infinite;
+        }
+
+        @keyframes changeBackgroundColor {
+            0% {
+                background: linear-gradient(310deg, #000, #000, #90CAF9);
+                background-size: 100% 100%;
+                background-attachment: fixed;
+            }
+            25% {
+                background: linear-gradient(310deg, #000, #000, #FF5733);
+                background-size: 100% 100%;
+                background-attachment: fixed;
+            }
+            50% {
+                background: linear-gradient(310deg, #000, #000, #33FF57);
+                background-size: 100% 100%;
+                background-attachment: fixed;
+            }
+            75% {
+                background: linear-gradient(310deg, #000, #000, #5733FF);
+                background-size: 100% 100%;
+                background-attachment: fixed;
+            }
+            100% {
+                background: linear-gradient(310deg, #000, #000, gold);
+                background-size: 100% 100%;
+                background-attachment: fixed;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 35px;
+            font-style: italic;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 5s steps(28) forwards, slide-in 1s ease-in-out;
+        }
+
+        @keyframes typing {
+            from {
+                width: 50;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes slide-in {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .page-links {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-link {
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+            background: white;
+            padding: 10px 70px;
+            border-radius: 15px;
+        }
+
+        .page-link:hover {
+            background-color: ;
+        }
+
+        .content {
+            text-align: center;
+            margin-top: 100px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="name">Samartha_Gs</h1>
+    </div>
+
+    <div class="page-links">
+        <a class="page-link button-link" href="samartha1.html">Button</a>
+        <a class="page-link" href="samartha2.html">Timer</a>
+        <a class="page-link" href="samartha3.html">Voice</a>
+        <a class="page-link" href="samartha4.html">Security </a> <!-- New Page Link -->
+        <a class="page-link" href="samartha5.html">Contact Me</a>
+    </div>
+
+    <script>
+        const nameElement = document.querySelector('.name');
+        const names = ["Samartha_Gs", "Pranav R Hegde"];
+        let currentIndex = 1;
+
+        function toggleName() {
+            nameElement.textContent = names[currentIndex];
+            nameElement.style.animation = 'typing 1s steps(15) forwards, slide-in 1s ease-in-out';
+
+            currentIndex = (currentIndex + 1) % names.length;
+        }
+
+        setInterval(toggleName, 3000);
+    </script>
+</body>
+</html>
