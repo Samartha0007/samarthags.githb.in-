@@ -1517,67 +1517,6 @@ I have selected to national level science exhibition.
 
 
 
-<script>
-  const musicList = [
-    'https://dl.sndup.net/rqc4/Samartha.mp3',
-    // Add more song URLs as needed
-  ];
-
-  const audio = document.getElementById('backgroundMusic');
-
-  function playRandomSong() {
-    const randomIndex = Math.floor(Math.random() * musicList.length);
-    const randomSong = musicList[randomIndex];
-    
-    audio.src = randomSong;
-    audio.play();
-  }
-
-  function playRandomSegment() {
-    const startTime = Math.random() * (audio.duration - 30 * 60); // Random start time within the first 30 minutes
-    const endTime = startTime + 30 * 60; // 30 minutes
-    audio.src = audio.src.split('#')[0] + '#t=' + startTime + ',' + endTime;
-    audio.play();
-  }
-
-  function scheduleNextPlayback() {
-    // Set a random interval between 5 and 15 minutes for the next playback
-    const interval = Math.random() * (15 * 60 * 1000 - 5 * 60 * 1000) + 5 * 60 * 1000;
-    setTimeout(() => {
-      playRandomSegment();
-      scheduleNextPlayback();
-    }, interval);
-  }
-
-  // Play a random song when the page loads
-  playRandomSong();
-
-  // Schedule the next playback after the initial song ends
-  audio.addEventListener('ended', () => {
-    scheduleNextPlayback();
-  });
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced Background Music Player</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #f0f0f0;
-    }
- 
-  
 
 <script>
   const musicList = [
