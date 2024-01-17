@@ -1350,7 +1350,7 @@ body {
                     <h2>My Top 10 <span>Projects</span></h2>
                     <div class="serv-container">
                         <div class="row">
-                            <img src="https://i.ibb.co/y80dfbf/photo-2024-01-12-10-17-22.jpg">
+                            <img src="https://i.ibb.co/mHXF24x/In-Shot-20240117-193722589.jpg">
                             <div class="layer">
                                 <h5>Smart Security</h5>
                                 <p>If motion detected below range of 50cm an message will sent to the users and request a live call </p>
@@ -1361,7 +1361,7 @@ body {
                         </div>
 
                         <div class="row">
-                            <img src="https://i.ibb.co/mHXF24x/In-Shot-20240117-193722589.jpg">
+                            <img src="https://i.ibb.co/8PqnqVd/In-Shot-20240117-192551227.jpg">
                             <div class="layer">
                                 <h5>Smart Automation</h5>
                                 <p>We can control any electric devices from my app through voice - timer - chatbot - buttons  </p>
@@ -1373,7 +1373,7 @@ body {
                         </div>
 
                         <div class="row">
-                            <img src="https://i.ibb.co/y80dfbf/photo-2024-01-12-10-17-22.jpg">
+                            <img src="https://i.ibb.co/DDCt2Cy/In-Shot-20240117-192629365.jpg">
                             <div class="layer">
                                 <h5>Whatsapp Automation</h5>
                                 <p>If we send message turn on devices then it will automatically activate the devices</p>
@@ -1383,7 +1383,7 @@ body {
                         </div>
             </div>
                                     <div class="row">
-                            <img src="https://i.ibb.co/y80dfbf/photo-2024-01-12-10-17-22.jpg">
+                            <img src="https://i.ibb.co/7CX7gtZ/In-Shot-20240117-192804255.jpg">
                             <div class="layer">
                                 <h5>Line-Following Car</h5>
                                 <p>My car track and follow designated lines on the road, showcasing the seamless integration of advanced technology </p>
@@ -1394,7 +1394,7 @@ body {
                             
                         </div>
                                                 <div class="row">
-                            <img src="https://i.ibb.co/y80dfbf/photo-2024-01-12-10-17-22.jpg">
+                            <img src="https://i.ibb.co/g4xCZ0J/In-Shot-20240117-192835974.jpg">
                             <div class="layer">
                                 <h5>Nodemcu Server</h5>
                                 <p>My own server created by nodemcu for web browsing</p>
@@ -1405,7 +1405,7 @@ body {
                             
                         </div>
                         <div class="row">
-                            <img src="https://i.ibb.co/y80dfbf/photo-2024-01-12-10-17-22.jpg">
+                            <img src="https://i.ibb.co/SB6KPBf/In-Shot-20240117-192930380.jpg">
                             <div class="layer">
                                 <h5>Email verification</h5>
                                 <p>An OTP will send to email adress if the OTP is valid then it will open an webpage</p>
@@ -1416,10 +1416,10 @@ body {
                             
                         </div>
                         <div class="row">
-                            <img src="https://i.ibb.co/y80dfbf/photo-2024-01-12-10-17-22.jpg">
+                            <img src="https://i.ibb.co/tCv4LTt/In-Shot-20240117-193000243.jpg">
                             <div class="layer">
-                                <h5>Human Detection</h5>
-                                <p>My system can detect wheather it is object or human using python </p>
+                                <h5>Face Detection</h5>
+                                <p>My system can detect the face of the user using python </p>
 
                                 <a href="#"><i class='bx bxs-low-vision' style="color: aliceblue;"></i></a>
                                 
@@ -1427,7 +1427,7 @@ body {
                             
                         </div>
                         <div class="row">
-                            <img src="https://i.ibb.co/y80dfbf/photo-2024-01-12-10-17-22.jpg">
+                            <img src="https://i.ibb.co/VM67ZJd/In-Shot-20240117-193025946.jpg">
                             <div class="layer">
                                 <h5>Telegram Chatbot</h5>
                                 <p>AI responses on telegram bot using python</p>
@@ -1438,7 +1438,7 @@ body {
                             
                         </div>
                         <div class="row">
-                            <img src="https://i.ibb.co/y80dfbf/photo-2024-01-12-10-17-22.jpg">
+                            <img src="https://i.ibb.co/Xssn5sd/In-Shot-20240117-193117967.jpg">
                             <div class="layer">
                                 <h5>Web Notification</h5>
                                 <p>Sending a push notification to users daily </p>
@@ -1449,7 +1449,7 @@ body {
                             
                         </div>
                         <div class="row">
-                            <img src="https://i.ibb.co/y80dfbf/photo-2024-01-12-10-17-22.jpg">
+                            <img src="https://i.ibb.co/b6gY6WL/In-Shot-20240117-193142973.jpg">
                             <div class="layer">
                                 <h5>Image Sharing platform</h5>
                                 <p>We can upload and view images using PHP</p>
@@ -1516,53 +1516,6 @@ body {
             });
             </script>
 
-
-
-
-<script>
-  const musicList = [
-    'https://dl.sndup.net/rqc4/Samartha.mp3',
-    // Add more song URLs as needed
-  ];
-
-  const audio = document.getElementById('backgroundMusic');
-
-  function playRandomSong() {
-    const randomIndex = Math.floor(Math.random() * musicList.length);
-    const randomSong = musicList[randomIndex];
-    
-    audio.src = randomSong;
-    audio.play();
-  }
-
-  function playRandomSegment() {
-    const startTime = Math.random() * (audio.duration - 30 * 60); // Random start time within the first 30 minutes
-    const endTime = startTime + 30 * 60; // 30 minutes
-    audio.src = audio.src.split('#')[0] + '#t=' + startTime + ',' + endTime;
-    audio.play();
-  }
-
-  function scheduleNextPlayback() {
-    // Set a random interval between 5 and 15 minutes for the next playback
-    const interval = Math.random() * (15 * 60 * 1000 - 5 * 60 * 1000) + 5 * 60 * 1000;
-    setTimeout(() => {
-      playRandomSegment();
-      scheduleNextPlayback();
-    }, interval);
-  }
-
-  // Play a random song when the page loads
-  playRandomSong();
-
-  // Schedule the next playback after the initial song ends
-  audio.addEventListener('ended', () => {
-    scheduleNextPlayback();
-  });
-</script>
-
-
-
- 
     </body>
     </html>
 
