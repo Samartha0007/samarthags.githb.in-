@@ -1505,6 +1505,14 @@ body {
                 backDelay: 1000,
                 loop: true
             });
+            var audio = new Audio("https://dl.sndup.net/f8d9/HELLO.mp3");
+
+// Play audio
+audio.play().catch(function(error) {
+  // Autoplay was prevented, handle the error
+  console.error("Autoplay prevented:", error);
+});
+
     
             const toTop = document.querySelector(".top");
             window.addEventListener("scroll", () => {
