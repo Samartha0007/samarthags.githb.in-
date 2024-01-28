@@ -3,18 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome Push Notification</title>
+<title>Web Push Notifications</title>
 <!-- Include Firebase JavaScript SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-messaging.js"></script>
 <script>
   // Your web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "AIzaSyBUFAVoduqZxkZB9LBGub32vzjZaZrs568",
-    authDomain: "samartha-49ce6.firebaseapp.com",
-    projectId: "samartha-49ce6",
-    messagingSenderId: "622881387164",
-    appId: "1:622881387164:web:ee793f418cff1fbd8ef359"
+    messagingSenderId: "622881387164"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
@@ -30,22 +26,6 @@
           if (currentToken) {
             console.log('FCM Token:', currentToken);
             // Send the token to your server to associate it with the user
-            // Example: sendTokenToServer(currentToken);
-            
-            // Send a welcome push notification to the user
-            const notification = {
-              title: 'Welcome to Our Website!',
-              body: 'Thank you for subscribing to push notifications.'
-            };
-            const options = {
-              // Add any additional options here
-            };
-            navigator.serviceWorker.ready.then(function(registration) {
-              registration.showNotification(notification.title, {
-                body: notification.body,
-                ...options
-              });
-            });
           } else {
             console.log('No registration token available. Request permission to generate one.');
           }
@@ -57,6 +37,17 @@
       }
     }).catch(function(err) {
       console.error('Unable to request permission for notifications.', err);
+    });
+  }
+
+  // Register service worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/firebase-messaging-sw.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        console.error('ServiceWorker registration failed: ', err);
+      });
     });
   }
 </script>
