@@ -1,60 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Push Notifications</title>
-<!-- Include Firebase JavaScript SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-messaging.js"></script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    messagingSenderId: "622881387164"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-
-  const messaging = firebase.messaging();
-
-  function requestNotificationPermission() {
-    Notification.requestPermission().then(function(permission) {
-      if (permission === 'granted') {
-        console.log('Notification permission granted.');
-        // Retrieve an FCM token to identify the device
-        messaging.getToken().then(function(currentToken) {
-          if (currentToken) {
-            console.log('FCM Token:', currentToken);
-            // Send the token to your server to associate it with the user
-          } else {
-            console.log('No registration token available. Request permission to generate one.');
-          }
-        }).catch(function(err) {
-          console.error('An error occurred while retrieving token. ', err);
-        });
-      } else {
-        console.log('Notification permission denied.');
-      }
-    }).catch(function(err) {
-      console.error('Unable to request permission for notifications.', err);
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(function(OneSignal) {
+    OneSignal.init({
+      appId: "8021d7af-5376-4997-b75d-5d484c07b887",
+      safari_web_id: "web.onesignal.auto.3cbb98e8-d926-4cfe-89ae-1bc86ff7cf70",
+      notifyButton: {
+        enable: true,
+      },
     });
-  }
 
-  // Register service worker
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/firebase-messaging-sw.js').then(function(registration) {
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      }, function(err) {
-        console.error('ServiceWorker registration failed: ', err);
+    function sendNotification() {
+      OneSignal.sendSelfNotification(
+        /* Title (defaults if unset) */
+        "Hello there!", 
+        /* Message (defaults if unset) */
+        "You clicked the button!",
+        /* URL to open (defaults to current URL) */
+        'https://example.com',
+        /* Icon */
+        'https://example.com/icon.png',
+        /* Notification Type */
+        {
+          notificationType: 'notification',
+          actionButtons: [{ id: 'id1', text: 'Read More', action: 'https://example.com' }]
+        }
+      );
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('notificationButton').addEventListener('click', function() {
+        sendNotification();
       });
     });
-  }
+  });
 </script>
-</head>
-<body>
-<h1>Welcome to Our Website!</h1>
-<p>If you would like to receive push notifications, click the button below:</p>
-<button onclick="requestNotificationPermission()">Enable Push Notifications</button>
-</body>
-</html>
+
+<button id="notificationButton">Send Notification</button>
