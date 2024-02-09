@@ -1,39 +1,44 @@
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(function(OneSignal) {
-    OneSignal.init({
-      appId: "8021d7af-5376-4997-b75d-5d484c07b887",
-      safari_web_id: "web.onesignal.auto.3cbb98e8-d926-4cfe-89ae-1bc86ff7cf70",
-      notifyButton: {
-        enable: true,
-      },
-    });
-
-    function sendNotification() {
-      OneSignal.sendSelfNotification(
-        /* Title (defaults if unset) */
-        "Hello there!", 
-        /* Message (defaults if unset) */
-        "You clicked the button!",
-        /* URL to open (defaults to current URL) */
-        'https://example.com',
-        /* Icon */
-        'https://example.com/icon.png',
-        /* Notification Type */
-        {
-          notificationType: 'notification',
-          actionButtons: [{ id: 'id1', text: 'Read More', action: 'https://example.com' }]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Button</title>
+    <style>
+        /* Button styling */
+        #downloadButton {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 10px;
         }
-      );
-    }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('notificationButton').addEventListener('click', function() {
-        sendNotification();
-      });
-    });
-  });
-</script>
+        /* Button hover effect */
+        #downloadButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <button id="downloadButton">Download App</button>
 
-<button id="notificationButton">Send Notification</button>
+    <script>
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            var appFilePath = 'sammu_1_1.0.apk'; // Relative path to your apk file
+            var link = document.createElement('a');
+            link.href = appFilePath;
+            link.download = 'sammu_1_1.0.apk'; // Change the filename according to your apk file
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+</body>
+</html>
