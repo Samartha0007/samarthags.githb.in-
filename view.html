@@ -13,24 +13,58 @@
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // Check if localStorage already has a views counter
-  if(localStorage.getItem("viewed") === null) {
-    // If not, increment the views counter and mark this user as viewed
-    let views = localStorage.getItem("viewsCounter") ? parseInt(localStorage.getItem("viewsCounter")) : 0;
-    views++;
-    localStorage.setItem("viewsCounter", views.toString());
-    localStorage.setItem("viewed", "true");
+  // Function to generate a unique browser fingerprint
+  function generateFingerprint() {
+    let fingerprint = "";
+    try {
+      fingerprint = new Fingerprint().get();
+    } catch (e) {
+      // Handle errors if Fingerprint.js library is not loaded
+    }
+    return fingerprint;
   }
 
-  // Get the current views count from localStorage
-  let views = parseInt(localStorage.getItem("viewsCounter"));
+  // Function to update the views counter
+  function updateViewsCounter() {
+    // Check if sessionStorage already has a views counter
+    if(sessionStorage.getItem("viewed") === null) {
+      // If not, create one and set to 0
+      sessionStorage.setItem("viewed", "true");
 
-  // Update the views counter on the page
-  document.getElementById("views").textContent = views;
+      // Check if localStorage already has a unique fingerprint
+      let fingerprint = localStorage.getItem("fingerprint");
+      if (!fingerprint) {
+        // If not, generate a new fingerprint and store it in localStorage
+        fingerprint = generateFingerprint();
+        localStorage.setItem("fingerprint", fingerprint);
+      }
+
+      // Check if localStorage already has a views counter
+      if(localStorage.getItem("viewsCounter") === null) {
+        // If not, create one and set to 0
+        localStorage.setItem("viewsCounter", "0");
+      }
+
+      // Increment the views counter and update localStorage
+      let views = parseInt(localStorage.getItem("viewsCounter"));
+      views++;
+      localStorage.setItem("viewsCounter", views.toString());
+    }
+
+    // Get the current views count from localStorage
+    let views = parseInt(localStorage.getItem("viewsCounter"));
+
+    // Update the views counter on the page
+    document.getElementById("views").textContent = views;
+  }
+
+  // Update views counter on page load
+  updateViewsCounter();
 });
 </script>
 </head>
 <body>
 <div class="counter">Views: <span id="views">0</span></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/2.1.0/fingerprint2.min.js"></script>
 </body>
 </html>
