@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Views Counter</title>
+<style>
+.counter {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 50px;
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  updateViewsCounter();
+
+  // Function to update the views counter
+  function updateViewsCounter() {
+    // Send an AJAX request to update the views counter
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "update_views.php", true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        // Update the views counter on the page
+        document.getElementById("views").textContent = xhr.responseText;
+      }
+    };
+    xhr.send();
+  }
+
+  // Refresh the views counter every 10 seconds
+  setInterval(updateViewsCounter, 10000);
+});
+</script>
+</head>
+<body>
+<div class="counter">Views: <span id="views">0</span></div>
+</body>
+</html>
