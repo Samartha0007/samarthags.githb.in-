@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Views Counter</title>
+<title>Website Views Counter</title>
 <style>
 .counter {
   font-size: 24px;
@@ -13,35 +13,20 @@
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // Function to update the views counter
-  function updateViewsCounter() {
-    // Check if localStorage already has a views counter
-    if(localStorage.getItem("viewsCounter") === null) {
-      // If not, create one and set to 0
-      localStorage.setItem("viewsCounter", "0");
-    }
-
-    // Get the current views count from localStorage
-    let views = parseInt(localStorage.getItem("viewsCounter"));
-
-    // Update the views counter on the page
-    document.getElementById("views").textContent = views;
-
-    // Check if this device has already visited the website
-    if(localStorage.getItem("visited") === null) {
-      // If not, increment the views counter and mark this device as visited
-      localStorage.setItem("visited", "true");
-      views++;
-      localStorage.setItem("viewsCounter", views.toString());
-      document.getElementById("views").textContent = views;
-    }
+  // Check if localStorage already has a views counter
+  if(localStorage.getItem("viewed") === null) {
+    // If not, increment the views counter and mark this user as viewed
+    let views = localStorage.getItem("viewsCounter") ? parseInt(localStorage.getItem("viewsCounter")) : 0;
+    views++;
+    localStorage.setItem("viewsCounter", views.toString());
+    localStorage.setItem("viewed", "true");
   }
 
-  // Update views counter on page load
-  updateViewsCounter();
+  // Get the current views count from localStorage
+  let views = parseInt(localStorage.getItem("viewsCounter"));
 
-  // Refresh the views counter every 10 seconds
-  setInterval(updateViewsCounter, 10000);
+  // Update the views counter on the page
+  document.getElementById("views").textContent = views;
 });
 </script>
 </head>
