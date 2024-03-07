@@ -3,86 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiplayer Tic Tac Toe</title>
+    <title>Chat Room</title>
     <style>
-        /* CSS styles for the game interface */
-        .board {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 5px;
+        /* CSS styles for the chat interface */
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
         }
-
-        .cell {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            border: 1px solid #ccc;
-            cursor: pointer;
+        #messages li {
+            padding: 5px 10px;
+        }
+        #messages li:nth-child(odd) {
+            background: #eee;
         }
     </style>
 </head>
 <body>
-    <!-- HTML structure for the game interface -->
-    <div class="board" id="board">
-        <!-- Tic Tac Toe board -->
-    </div>
+    <!-- HTML structure for the chat interface -->
+    <ul id="messages"></ul>
+    <input id="messageInput" autocomplete="off">
+    <button id="sendButton">Send</button>
 
-    <div>
-        <!-- Shareable link -->
-        <p>Share this link with your friend:</p>
-        <input type="text" id="shareLink" readonly>
-    </div>
+    <p>Share this link with others to invite them to the chat room:</p>
+    <input type="text" id="shareLink" readonly>
 
     <script src="https://cdn.socket.io/4.3.1/socket.io.min.js"></script>
     <script>
-        // JavaScript code for the game logic and communication with the server
+        // JavaScript code for handling chat functionality
         const socket = io();
-        let currentPlayer = 'X';
-        let gameId = null;
+        const roomId = generateRoomId();
 
-        // Generate a unique game ID
-        function generateGameId() {
+        // Generate a unique room ID
+        function generateRoomId() {
             return Math.random().toString(36).substr(2, 9);
         }
 
-        // Check if there are URL parameters to join an existing game
-        const urlParams = new URLSearchParams(window.location.search);
-        gameId = urlParams.get('gameId');
-        if (gameId) {
-            socket.emit('joinGame', gameId);
-            document.getElementById('shareLink').value = window.location.href;
-            document.getElementById('shareLink').disabled = true; // Disable input field
-        } else {
-            gameId = generateGameId();
-            history.pushState(null, null, `?gameId=${gameId}`);
-            document.getElementById('shareLink').value = window.location.href;
+        // Set the shareable link
+        document.getElementById('shareLink').value = `${window.location.href}?roomId=${roomId}`;
+
+        // Send message function
+        function sendMessage() {
+            const message = document.getElementById('messageInput').value;
+            if (message.trim() !== '') {
+                socket.emit('chatMessage', { roomId, message });
+                document.getElementById('messageInput').value = '';
+            }
         }
 
-        const board = document.getElementById('board');
-
-        // Create the Tic Tac Toe board
-        for (let i = 0; i < 9; i++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.dataset.index = i;
-            cell.addEventListener('click', () => {
-                if (cell.textContent === '' && currentPlayer === 'X') {
-                    cell.textContent = currentPlayer;
-                    socket.emit('move', { index: i, player: currentPlayer, gameId });
-                    currentPlayer = 'O';
-                }
-            });
-            board.appendChild(cell);
+        // Display message function
+        function displayMessage(message) {
+            const li = document.createElement('li');
+            li.textContent = message;
+            document.getElementById('messages').appendChild(li);
         }
 
-        // Handle incoming moves from the server
-        socket.on('move', (data) => {
-            const cell = document.querySelector(`[data-index="${data.index}"]`);
-            if (cell.textContent === '') {
-                cell.textContent = data.player;
-                currentPlayer = data.player === 'X' ? 'O' : 'X';
+        // Event listener for send button
+        document.getElementById('sendButton').addEventListener('click', sendMessage);
+
+        // Event listener for enter key
+        document.getElementById('messageInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Handle incoming chat messages
+        socket.on('chatMessage', (data) => {
+            if (data.roomId === roomId) {
+                displayMessage(data.message);
             }
         });
     </script>
