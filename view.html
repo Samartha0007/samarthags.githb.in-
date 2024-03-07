@@ -53,6 +53,7 @@
         if (gameId) {
             socket.emit('joinGame', gameId);
             document.getElementById('shareLink').value = window.location.href;
+            document.getElementById('shareLink').disabled = true; // Disable input field
         } else {
             gameId = generateGameId();
             history.pushState(null, null, `?gameId=${gameId}`);
