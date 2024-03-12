@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samartha-App</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    
-<style>
+
+    <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #f0f0f0;
+            background-color: #000;
             margin: 0;
             padding: 0;
-            color: #333;
+            color: #fff;
             overflow-x: hidden;
         }
 
@@ -26,15 +26,16 @@
         }
 
         .card {
-            background-color: #fff;
+            background-color: #000;
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(155, 225, 255, 0.1);
             padding: 40px;
             max-width: 600px;
             width: 100%;
             text-align: center;
             position: relative;
             overflow: hidden;
+            color: #fff;
         }
 
         h1 {
@@ -56,6 +57,7 @@
         .app-icon img {
             width: 80px;
             height: 80px;
+            border-radius: 50%;
         }
 
         p {
@@ -66,19 +68,23 @@
         }
 
         .download-button {
-            padding: 15px 30px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
+            padding: 15px 25px;
+            background-color: #0ef;
+            border: 2px solid #0ff;
+            border-radius: 15px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            font-size: 20px;
+            font-size: 15px;
             animation: bounce 1s ease-out;
+            box-shadow: 0 0 1px rgba(0, 0, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .download-button:hover {
-            background-color: #0056b3;
+            background-color: #0ef;
+            border-color: #0ef;
+            box-shadow: 0 0 15px rgba(0, 0, 255, 0.8);
         }
 
         .download-button:disabled {
@@ -96,7 +102,7 @@
         }
 
         .typed-text {
-            color: #000;
+            color:#0ef;
             display: inline-block;
             white-space: nowrap;
             overflow: hidden;
@@ -136,6 +142,21 @@
             animation: fadeIn 1s ease-out;
         }
 
+        .stars {
+            display: flex;
+            justify-content: center;
+        }
+
+        .star {
+            font-size: 24px;
+            color: #ddd;
+            cursor: pointer;
+        }
+
+        .star.filled {
+            color: #ff0;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -161,22 +182,41 @@
     <div class="container">
         <div class="card">
             <div class="app-icon">
-                <img src="https://i.ibb.co/y80dfbf/photo-2024-01-12-10-17-22.jpg" alt="App Icon">
+                <img src="https://i.ibb.co/LYcD1kV/IMG-20240307-112133-743.jpg" alt="App Icon">
             </div>
             <h1><span class="typed-text"></span></h1>
-            <p>Connect smoothly with Samartha's app !</p>
+            <p>App is secured. No need to worry.</p>
             <button id="downloadButton" class="download-button">Download Now</button>
-            <div id="currentDateTime" class="small-text"></div>
             <div class="designed-by">Designed by Samartha Gs</div>
         </div>
         <div class="particles-bg"></div>
     </div>
-    <span id="webpushr-subscription-toggle-button" data-size="1.8" data-text-when-denied="You've blocked push notifications." data-tooltip-position="right" data-color="#2c7be5"></span>
+
+    <!-- New container for download status -->
+    <div class="container">
+        <div class="card">
+            <h2>300+ are already downloaded</h2>
+        </div>
+    </div>
+
+    <!-- Review section -->
+    <div class="container">
+        <div class="card">
+            <h2>Leave a Review</h2>
+            <div class="stars">
+                <span class="star" data-value="1">&#9734;</span>
+                <span class="star" data-value="2">&#9734;</span>
+                <span class="star" data-value="3">&#9734;</span>
+                <span class="star" data-value="4">&#9734;</span>
+                <span class="star" data-value="5">&#9734;</span>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         const typedTextSpan = document.querySelector(".typed-text");
-        const textArray = ["AI Chatbot", "PicSharing", "Comments", "Live location ", "Weather", "NotifyBot"];
+        const textArray = ["AI Chatbot", "PicSharing", "Comments", "Live location ", "Weather", "NotifyBot", "Remainder","Search Bot","20000+ ","Images","3000+","Comments","GPT-3"];
         const typingDelay = 100; // in milliseconds
         const erasingDelay = 50; // in milliseconds
         const newTextDelay = 2000; // in milliseconds
@@ -210,39 +250,10 @@
 
         setTimeout(type, newTextDelay);
 
-        function updateDateTime() {
-            const currentTime = new Date();
-            const hours = currentTime.getHours();
-            const minutes = currentTime.getMinutes();
-            const seconds = currentTime.getSeconds();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            const formattedHours = hours % 12 || 12; // Convert to 12-hour format
-            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-            const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
-            const monthNames = ["January", "February", "March", "April", "May", "June",
-              "July", "August", "September", "October", "November", "December"];
-            const month = monthNames[currentTime.getMonth()];
-            const date = currentTime.getDate();
-            const year = currentTime.getFullYear();
-            const timeString = formattedHours + ':' + formattedMinutes + ':' + formattedSeconds + ' ' + ampm + ' - ' + month + ' ' + date + ', ' + year;
-            document.getElementById('currentDateTime').innerText = timeString;
-        }
-
-        setInterval(updateDateTime, 1000);
-        updateDateTime(); // Initial call to display the current time
-
         const downloadButton = document.getElementById("downloadButton");
 
         downloadButton.addEventListener("click", function() {
-            // Simulate a download process
-            setTimeout(function() {
-                alert("Your download will start shortly!");
-                // Replace the alert with the actual download logic
-            }, 2000); // Simulating a 2-second delay
-        });
-        
-        // Download function
-        document.getElementById('downloadButton').addEventListener('click', function() {
+            // Replace the alert with the actual download logic
             var appFilePath = 'Samartha_1_1.0.apk'; // Relative path to your apk file
             var link = document.createElement('a');
             link.href = appFilePath;
@@ -251,7 +262,32 @@
             link.click();
             document.body.removeChild(link);
         });
-    
+
+        // Review section JavaScript
+        const stars = document.querySelectorAll(".star");
+
+        stars.forEach((star, index) => {
+            star.addEventListener("click", function() {
+                fillStars(index);
+                saveReview(index);
+            });
+        });
+
+        function fillStars(index) {
+            stars.forEach((star, i) => {
+                if (i <= index) {
+                    star.classList.add("filled");
+                } else {
+                    star.classList.remove("filled");
+                }
+            });
+        }
+
+        function saveReview(index) {
+            // Your code to save the review to localhost goes here
+            console.log("Review saved:", index + 1);
+        }
+    </script>
 
 </body>
 </html>
