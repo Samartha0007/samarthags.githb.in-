@@ -1,2 +1,2 @@
 
-https://www.samarthags.site
+https://samarthags.cloud
