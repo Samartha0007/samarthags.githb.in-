@@ -1,48 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Push Notification Permission</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webpushr Demo</title>
+  <!-- Start Webpushr tracking code -->
+  <script>
+    (function(w, d, s, id) {
+      if (typeof (w.webpushr) !== 'undefined') return;
+      w.webpushr = w.webpushr || function() {
+        (w.webpushr.q = w.webpushr.q || []).push(arguments)
+      };
+      var js, fjs = d.getElementsByTagName(s)[0];
+      js = d.createElement(s);
+      js.id = id;
+      js.async = 1;
+      js.src = "https://cdn.webpushr.com/app.min.js";
+      fjs.parentNode.appendChild(js);
+    }(window, document, 'script', 'webpushr-jssdk'));
 
-<!-- start webpushr code --> <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BCxGMLASy6a4l7Qax8yrmkJVA95kcTWk2UMFLe9LUiRqsMcAQC5HuGsFZWJRjY1nr37CTDfR6MYyUIR6G5vxhZA' });</script><!-- end webpushr code -->
-<style>
-    body {
-        font-family: Arial, sans-serif;
-    }
-    #notificationButton {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-    #notificationButton:hover {
-        background-color: #0056b3;
-    }
-</style>
+    // Setup Webpushr with your API key
+    webpushr('setup', {
+      'key': 'BCxGMLASy6a4l7Qax8yrmkJVA95kcTWk2UMFLe9LUiRqsMcAQC5HuGsFZWJRjY1nr37CTDfR6MYyUIR6G5vxhZA'
+    });
+  </script>
+  <!-- End Webpushr tracking code -->
 </head>
+
 <body>
-    <h1>Push Notification Permission</h1>
-    <button id="notificationButton">Ask for Push Notification Permission</button>
+  <!-- HTML button for demo push notification -->
+  <button onclick="sendDemoPushNotification()">Send Demo Push Notification</button>
 
-    <script>
-        // Function to request permission for push notifications
-        function askForNotificationPermission() {
-            Notification.requestPermission().then(function(permission) {
-                if (permission === 'granted') {
-                    console.log('Notification permission granted.');
-                } else {
-                    console.log('Notification permission denied.');
-                }
-            });
-        }
-
-        // Event listener for the button click
-        document.getElementById('notificationButton').addEventListener('click', function() {
-            askForNotificationPermission();
-        });
-    </script>
+  <!-- Script to send demo push notification -->
+  <script>
+    function sendDemoPushNotification() {
+      webpushr('prompt', {
+        "title": "Demo Notification",
+        "message": "This is a demo push notification!"
+      });
+    }
+  </script>
 </body>
+
 </html>
