@@ -1,46 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpushr Demo</title>
-  <!-- Start Webpushr tracking code -->
-  <script>
-    (function(w, d, s, id) {
-      if (typeof (w.webpushr) !== 'undefined') return;
-      w.webpushr = w.webpushr || function() {
-        (w.webpushr.q = w.webpushr.q || []).push(arguments)
-      };
-      var js, fjs = d.getElementsByTagName(s)[0];
-      js = d.createElement(s);
-      js.id = id;
-      js.async = 1;
-      js.src = "https://cdn.webpushr.com/app.min.js";
-      fjs.parentNode.appendChild(js);
-    }(window, document, 'script', 'webpushr-jssdk'));
-
-    // Setup Webpushr with your API key
-    webpushr('setup', {
-      'key': 'BCxGMLASy6a4l7Qax8yrmkJVA95kcTWk2UMFLe9LUiRqsMcAQC5HuGsFZWJRjY1nr37CTDfR6MYyUIR6G5vxhZA'
-    });
-  </script>
-  <!-- End Webpushr tracking code -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminder Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="datetime-local"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .reminder-item {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
-
 <body>
-  <!-- HTML button for demo push notification -->
-  <button onclick="sendDemoPushNotification()">Send Demo Push Notification</button>
+    <div class="container">
+        <h1>Reminder Bot</h1>
+        <form id="reminderForm">
+            <label for="reminder">Enter Reminder:</label>
+            <input type="text" id="reminder" name="reminder">
+            <label for="datetime">Select Date and Time:</label>
+            <input type="datetime-local" id="datetime" name="datetime">
+            <button type="submit">Set Reminder</button>
+        </form>
+        <div id="reminderDisplay"></div>
+    </div>
+    <script>
+        const reminderForm = document.getElementById('reminderForm');
+        const reminderDisplay = document.getElementById('reminderDisplay');
 
-  <!-- Script to send demo push notification -->
-  <script>
-    function sendDemoPushNotification() {
-      webpushr('prompt', {
-        "title": "Demo Notification",
-        "message": "This is a demo push notification!"
-      });
-    }
-  </script>
+        reminderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const reminderText = this.elements['reminder'].value;
+            const datetime = this.elements['datetime'].value;
+            
+            const reminder = {
+                text: reminderText,
+                datetime: new Date(datetime)
+            };
+            
+            displayReminder(reminder);
+
+            // Send request to WebPushr API to schedule a reminder notification
+            sendWebPushrNotification(reminderText, datetime);
+            
+            this.reset();
+        });
+
+        function displayReminder(reminder) {
+            const reminderElement = document.createElement('div');
+            reminderElement.classList.add('reminder-item');
+            reminderElement.innerHTML = `<strong>${reminder.text}</strong> - ${reminder.datetime}`;
+            reminderDisplay.appendChild(reminderElement);
+        }
+
+        function sendWebPushrNotification(reminderText, datetime) {
+            // Replace 'YOUR_WEBPUSHR_KEY' with your actual WebPushr key
+            const webPushrKey = '792bb7adf537a4cf2444e46e88a27720';
+            
+            fetch('https://api.webpushr.com/v1/notification/send/all', {
+                method: 'POST',
+                headers: {
+                    'webpushrKey': webPushrKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: 'Reminder',
+                    message: reminderText,
+                    delivery_time: datetime,
+                    timezone: 'America/New_York' // Adjust timezone as per your needs
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to send notification');
+                }
+                console.log('Notification sent successfully');
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
-
 </html>
