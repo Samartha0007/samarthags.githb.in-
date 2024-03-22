@@ -1,18 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment Request</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #fafafa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        text-align: center;
+    }
+    h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 45px;
+    }
+    .login-button, .guest-button {
+        width: 250px;
+        padding: 15px;
+        font-size: 18px;
+        cursor: pointer;
+        border: 2px solid linear-gradient(45deg, #7F7FD5, #86A8E7, #91EAE4);
+        border-radius: 25px;
+        background-color: transparent;
+        color: #333;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        outline: ;
+    }
+    .login-button:hover, .guest-button:hover {
+        background-color: #333;
+        color: #fff;
+    }
+</style>
 </head>
 <body>
-  <button onclick="openPaymentApp()">Request Payment</button>
-
-  <script>
-    function openPaymentApp() {
-      var paymentUrl = "upi://pay?pa=samarthags@fam&am=100";
-      window.location.href = paymentUrl;
-    }
-  </script>
+<div class="container">
+    <h1>Login</h1>
+    <div class="button-container">
+        <button class="login-button">Login</button>
+        <button class="guest-button">Continue as Guest</button>
+    </div>
+</div>
 </body>
 </html>
